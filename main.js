@@ -1,7 +1,7 @@
 function getURL(callback) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         const currentTab = tabs[0];
-        document.getElementById("url-display").textContent = currentTab.url; 
+        // document.getElementById("url-display").textContent = currentTab.url; 
         callback(currentTab.url);
     });
 }
@@ -13,15 +13,15 @@ async function getIP(domain) {
         const data = await response.json();
         if (data.status === "success") {
             const ip = data.query;
-            document.getElementById("ip-display").textContent = ip;
+            // document.getElementById("ip-display").textContent = ip;
             return ip;
         } else {
             console.error("Error fetching IP address:", data.message);
-            document.getElementById("ip-display").textContent = "Error fetching IP address";
+            // document.getElementById("ip-display").textContent = "Error fetching IP address";
         }
     } catch (error) {
         console.error("Error fetching IP address:", error);
-        document.getElementById("ip-display").textContent = "Error fetching IP address";
+        // document.getElementById("ip-display").textContent = "Error fetching IP address";
     }
 }
 
@@ -38,16 +38,16 @@ async function getLoc(ipAddress) {
                 long: data.lon,
                 isp: data.isp
             };
-            document.getElementById("location-display").textContent = 
-                `latitude: ${locInfo.lat}, longitude: ${locInfo.long}`;
+            // document.getElementById("location-display").textContent = 
+                // `latitude: ${locInfo.lat}, longitude: ${locInfo.long}`;
             return locInfo;
         } else {
             console.error("error fetching location:", data.message);
-            document.getElementById("location-display").textContent = "error fetching location";
+            // document.getElementById("location-display").textContent = "error fetching location";
         }
     } catch (error) {
         console.error("error fetching location:", error);
-        document.getElementById("location-display").textContent = "error fetching location";
+        // document.getElementById("location-display").textContent = "error fetching location";
     }
 }
 
@@ -67,16 +67,18 @@ async function getNativeLand(latitude, longitude) {
 
                 if (description.includes("/territories/")) {
                     territories.push(name);
-                } else if (description.includes("/languages/")) {
-                    languages.push(name);
                 }
+                // language not working, getting rid of for now
+                // else if (description.includes("/languages/")) {
+                //     languages.push(name);
+                // }
             });
 
-            const territoryText = `Territories: ${territories.join("; ")}`;
-            const languageText = `Languages: ${languages.join("; ")}`;
+            const territoryText = `${territories.join("; \n")}`;
+            // const languageText = `Languages: ${languages.join("; ")}`;
             
             document.getElementById("land-display").textContent = 
-                `${territoryText}\n${languageText}`;
+                `${territoryText}`;
             
         } else {
             document.getElementById("land-display").textContent = 
