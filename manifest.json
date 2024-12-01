@@ -3,7 +3,7 @@
     "name": "Native Land Servers",
     "version": "1.0.0",
     "description": "extension to display land rights for actively accessed data centers",
-    "permissions": ["tabs"],
+    "permissions": ["tabs", "activeTab"],
     "action": {
         "default_popup": "popup.html"
     },

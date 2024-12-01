@@ -1,8 +1,8 @@
 function getURL(callback) {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        const currentTab = tabs[0];
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const currentTab = tabs[0].url;
         // document.getElementById("url-display").textContent = currentTab.url; 
-        callback(currentTab.url);
+        callback(currentTab);
     });
 }
 
@@ -92,14 +92,34 @@ async function getNativeLand(latitude, longitude) {
     }
 }
 
-getURL(async (url) => {
-    const domain = new URL(url).hostname;
-    const IP = await getIP(domain);
+document.addEventListener('DOMContentLoaded', () => {
+    getURL(async (url) => {
+        try {
+            const domain = new URL(url).hostname;
+            const IP = await getIP(domain);
 
-    if (IP) {
-        const location = await getLoc(IP);
-        if (location) {
-            await getNativeLand(location.lat, location.long);
+            if (IP) {
+                const location = await getLoc(IP);
+                if (location) {
+                    await getNativeLand(location.lat, location.long);
+                }
+            }
+        } catch (error) {
+            console.error("Error processing URL:", error);
+            document.getElementById("land-display").textContent = 
+                "Error processing website information";
         }
-    }
+    });
 });
+
+// getURL(async (url) => {
+//     const domain = new URL(url).hostname;
+//     const IP = await getIP(domain);
+
+//     if (IP) {
+//         const location = await getLoc(IP);
+//         if (location) {
+//             await getNativeLand(location.lat, location.long);
+//         }
+//     }
+// });

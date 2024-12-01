@@ -1,0 +1,20 @@
+body {
+    width: 400px;
+    background-color: #7a180b;
+    color: #ffffff;
+    font-family: 'Andale Mono', monospace;
+    line-height: 1.5;
+    word-spacing: 4px;
+}
+
+
+
+/* font options:  
+    - Lucida Console
+    - Monaco
+    - Consolas
+    - Futura
+    - Andale Mono
+    https://www.cssfontstack.com/
+
+*/
